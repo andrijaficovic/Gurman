@@ -62,25 +62,26 @@ foreach ($tagovi as $tag) {
                 </article>
                 <!-- Comments section-->
                 <?php
-                //if (isset($_POST['comment'])) {
-                //    $username = $_SESSION['username'];
-                //    $content = $_POST['content'];
-                //    echo $id.$username.$content;
-                //}
+                if (isset($_POST['content'])) {
+                    $content = $_POST['content'];
+                    if(isset($_SESSION['username'])){
+                        $username = $_SESSION['username'];
+                    }else{
+                        $username = "Anonimus";
+                    }
+                    writeComment($id, $username, $content);
+                }
                 ?>
-                <!-- <section>
+                 <section>
                     <div class="card bg-light">
                         <div class="card-body">
-                             Comment form-->
-                            <!-- <form class="mb-4" action="" method="post">
+                             <form class="mb-4" action="" method="post">
                                 <textarea class="form-control" rows="3" placeholder="Kaži nam da li ti se recept svideo i podeli iskustvo sa nama!" name="content"></textarea>
                                 <input type="submit" value="Dodaj komentar" name="comment" class="bg-primary text-white rounded-pill p-1 my-3 fw-bold">
-                            </form> -->
-                            <!-- comment -->
-                            
-                        <!-- </div>
+                            </form>
+                         </div>
                     </div>
-                </section> -->
+                </section> 
             </div>
         </div>
     </div>

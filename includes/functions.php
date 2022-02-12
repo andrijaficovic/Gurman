@@ -281,43 +281,14 @@ function getAuthorSession(){
 //     header("location: ./edit_recipe.php?error=none");
 //     exit();
 // }
-
-function writeComment(){
-    if(isset($_POST["comment"])){
-        global $connection;
-        $id = $_GET['id'];
-        echo $id;
-        $username = $_SESSION['username'];
-        echo $username;
-        $content = $_POST['content'];
-        echo $content;
-        $query = "INSERT INTO `comments`(`post_id`, `username`, `comment_content`) VALUES($id, $username, $content)";
-        $result = mysqli_query($connection, $query);
-        if ($result) {
-            header("location: recipe-post.php?id=$id&error=none");
-            exit();
-        }
-    }
-}
-
-function readComment($id){
+function writeComment($post_id, $username, $comment_content){
     global $connection;
-    $query = "SELECT * FROM `comments` WHERE `post_id`=$id";
+    $query = "INSERT INTO `comments` (`post_id`, `username`, `comment_content`) VALUES ($post_id, '$username', '$comment_content');";
     $result = mysqli_query($connection, $query);
-    $count = mysqli_num_rows($result);
-    if ($count == 0) {
-        echo "<h3>Budite prvi koji će da ostavi komentar!</h3>";
+    if ($result) {
+        $smsg = "Komentar je uspešno upisan.";
     } else {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $username = $row['username'];
-            $comment_content = $row['comment_content'];
-            echo "<div class=\"d-flex\">
-                            <div class=\"ms-3\">
-                                <div class=\"fw-bold\">$username</div>
-                                $comment_content
-                            </div>
-                        </div>";
-        }
+        echo "Komentar je neuspešno upisan";
     }
 }
 
