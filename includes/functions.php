@@ -286,9 +286,34 @@ function writeComment($post_id, $username, $comment_content){
     $query = "INSERT INTO `comments` (`post_id`, `username`, `comment_content`) VALUES ($post_id, '$username', '$comment_content');";
     $result = mysqli_query($connection, $query);
     if ($result) {
-        $smsg = "Komentar je uspešno upisan.";
+        echo "Komentar je uspešno upisan.";
     } else {
         echo "Komentar je neuspešno upisan";
+    }
+}
+
+function readComments($id){
+    global $connection;
+    $query = "SELECT * FROM `comments` WHERE `post_id`=$id LIMIT 5;";
+    $result = mysqli_query($connection, $query);
+    if (mysqli_num_rows($result) === 0) {
+        echo "<div class=\"d-flex\">
+                <div class=\"ms-3\">
+                Ovaj post još uvek nema komentara.
+                </div>
+             </div>";
+    } else {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $username = $row['username'];
+            $comment_content = $row['comment_content'];
+            echo "<div class=\"d-flex pb-3\">
+                    <div class=\"flex-shrink-0\"><img class=\"rounded-circle\" src=\"https://dummyimage.com/50x50/ced4da/6c757d.jpg\" alt=\"...\"></div>
+                    <div class=\"ms-3\">
+                        <div class=\"fw-bold\">$username</div>
+                        $comment_content
+                    </div>
+                </div>";
+        }
     }
 }
 

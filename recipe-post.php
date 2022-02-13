@@ -64,24 +64,28 @@ foreach ($tagovi as $tag) {
                 <?php
                 if (isset($_POST['content'])) {
                     $content = $_POST['content'];
-                    if(isset($_SESSION['username'])){
+                    if (isset($_SESSION['username'])) {
                         $username = $_SESSION['username'];
-                    }else{
+                    } else {
                         $username = "Anonimus";
                     }
                     writeComment($id, $username, $content);
                 }
                 ?>
-                 <section>
+                <section>
                     <div class="card bg-light">
                         <div class="card-body">
-                             <form class="mb-4" action="" method="post">
+                            <form class="mb-4" action="" method="post">
                                 <textarea class="form-control" rows="3" placeholder="Kaži nam da li ti se recept svideo i podeli iskustvo sa nama!" name="content"></textarea>
                                 <input type="submit" value="Dodaj komentar" name="comment" class="bg-primary text-white rounded-pill p-1 my-3 fw-bold">
+                                <!-- Single comment-->
+                                <?php
+                                readComments($id);
+                                ?>
                             </form>
-                         </div>
+                        </div>
                     </div>
-                </section> 
+                </section>
             </div>
         </div>
     </div>
